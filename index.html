@@ -5,47 +5,47 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Music Apps — tools for guitar players who practice</title>
 <meta name="description" content="Four hand-built web apps for musicians: Shreddy, LickBank, ChordCraft, and Metronome. Local-first, iPad-ready, built by a guitar player." />
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root {
     --ink: #1d1d1f;
     --ink-soft: #424245;
     --ink-mute: #6e6e73;
     --line: #d2d2d7;
+    --line-soft: #e8e8ed;
     --canvas: #ffffff;
-    --canvas-alt: #fbfbfd;
+    --canvas-alt: #f5f5f7;
     --canvas-ink: #0b0b0e;
     --accent-shreddy: #ff4d2e;
-    --accent-shreddy-glow: rgba(255,77,46,.18);
+    --accent-shreddy-glow: rgba(255,77,46,.14);
     --accent-lickbank: #5b6cff;
-    --accent-lickbank-glow: rgba(91,108,255,.18);
+    --accent-lickbank-glow: rgba(91,108,255,.14);
     --accent-chordcraft: #17c27a;
-    --accent-chordcraft-glow: rgba(23,194,122,.18);
-    --accent-metronome: #ffffff;
-    --accent-metronome-glow: rgba(255,255,255,.12);
-    --radius-xl: 28px;
-    --radius-lg: 20px;
-    --radius-md: 14px;
+    --accent-chordcraft-glow: rgba(23,194,122,.14);
+    --accent-metronome-glow: rgba(255,255,255,.10);
+    --radius-xl: 22px;
+    --radius-lg: 18px;
+    --radius-md: 12px;
+    --type-tight: -0.022em;
+    --type-tighter: -0.032em;
   }
 
   * { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+  html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility; }
   body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', Arial, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", system-ui, Segoe UI, Roboto, sans-serif;
     color: var(--ink);
     background: var(--canvas);
-    line-height: 1.5;
-    font-feature-settings: 'ss01', 'cv11';
+    line-height: 1.47;
+    font-weight: 400;
+    letter-spacing: -0.003em;
   }
 
   img { max-width: 100%; display: block; }
   a { color: inherit; text-decoration: none; }
 
-  .shell { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
-  @media (max-width: 640px) { .shell { padding: 0 20px; } }
+  .shell { max-width: 1120px; margin: 0 auto; padding: 0 32px; }
+  @media (max-width: 640px) { .shell { padding: 0 22px; } }
 
   /* ---------- Nav ---------- */
   .nav {
@@ -55,25 +55,26 @@
     background: rgba(255,255,255,.72);
     backdrop-filter: saturate(180%) blur(20px);
     -webkit-backdrop-filter: saturate(180%) blur(20px);
-    border-bottom: 1px solid rgba(0,0,0,.06);
+    border-bottom: 1px solid rgba(0,0,0,.05);
   }
   .nav-inner {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 52px;
+    height: 48px;
   }
   .nav-brand {
-    font-weight: 700;
+    font-weight: 600;
     font-size: 15px;
-    letter-spacing: -0.01em;
+    letter-spacing: var(--type-tight);
   }
   .nav-links {
     display: flex;
     gap: 28px;
     font-size: 13px;
     color: var(--ink-soft);
-    font-weight: 500;
+    font-weight: 400;
+    letter-spacing: -0.005em;
   }
   .nav-links a { transition: color .15s ease; }
   .nav-links a:hover { color: var(--ink); }
@@ -82,7 +83,7 @@
   /* ---------- Hero ---------- */
   .hero {
     position: relative;
-    padding: 120px 0 80px;
+    padding: 128px 0 96px;
     overflow: hidden;
     text-align: center;
   }
@@ -91,68 +92,65 @@
     position: absolute;
     inset: 0;
     background:
-      radial-gradient(60% 50% at 20% 20%, rgba(255,77,46,.10), transparent 60%),
-      radial-gradient(50% 40% at 80% 30%, rgba(91,108,255,.10), transparent 60%),
-      radial-gradient(70% 60% at 50% 100%, rgba(23,194,122,.08), transparent 60%);
+      radial-gradient(55% 50% at 22% 18%, rgba(255,77,46,.09), transparent 62%),
+      radial-gradient(45% 40% at 78% 28%, rgba(91,108,255,.08), transparent 62%),
+      radial-gradient(60% 50% at 50% 100%, rgba(23,194,122,.07), transparent 62%);
     z-index: -1;
   }
   .eyebrow {
     display: inline-block;
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--ink-soft);
-    letter-spacing: 0.02em;
-    margin-bottom: 24px;
-    padding: 6px 14px;
-    border: 1px solid var(--line);
-    border-radius: 999px;
-    background: rgba(255,255,255,.6);
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--ink-mute);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 28px;
   }
   h1.hero-title {
-    font-size: clamp(44px, 7vw, 88px);
-    line-height: 1.02;
-    letter-spacing: -0.035em;
-    font-weight: 800;
-    margin: 0 0 24px;
-    background: linear-gradient(180deg, #0b0b0e 0%, #2b2b30 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+    font-size: clamp(40px, 6.6vw, 80px);
+    line-height: 1.05;
+    letter-spacing: var(--type-tighter);
+    font-weight: 600;
+    margin: 0 auto 20px;
+    max-width: 13ch;
+    color: var(--ink);
   }
   .hero-sub {
-    font-size: clamp(18px, 2vw, 22px);
+    font-size: clamp(17px, 1.5vw, 21px);
     color: var(--ink-soft);
-    max-width: 640px;
-    margin: 0 auto 48px;
+    max-width: 600px;
+    margin: 0 auto 56px;
     line-height: 1.5;
+    letter-spacing: -0.003em;
   }
   .hero-strip {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
-    max-width: 760px;
+    gap: 14px;
+    max-width: 720px;
     margin: 0 auto;
   }
   .hero-chip {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 8px;
-    padding: 20px 12px;
+    gap: 10px;
+    padding: 20px 12px 18px;
     border-radius: var(--radius-md);
-    background: #fff;
-    border: 1px solid var(--line);
+    background: rgba(255,255,255,.72);
+    border: 1px solid var(--line-soft);
     font-size: 13px;
-    font-weight: 600;
-    color: var(--ink-soft);
-    transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+    font-weight: 500;
+    color: var(--ink);
+    letter-spacing: -0.005em;
+    transition: transform .25s cubic-bezier(.2,.8,.2,1), border-color .25s ease;
   }
-  .hero-chip:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(0,0,0,.06); }
+  .hero-chip:hover { transform: translateY(-2px); border-color: rgba(0,0,0,.14); }
   .hero-chip .mark {
-    width: 32px; height: 32px;
-    border-radius: 9px;
+    width: 28px; height: 28px;
+    border-radius: 7px;
     display: flex; align-items: center; justify-content: center;
-    color: #fff; font-weight: 700; font-size: 15px; letter-spacing: -0.01em;
+    color: #fff; font-weight: 600; font-size: 13px; letter-spacing: -0.01em;
   }
   .mark.shreddy { background: linear-gradient(135deg, #ff4d2e, #ff8559); }
   .mark.lickbank { background: linear-gradient(135deg, #5b6cff, #8b9aff); }
@@ -160,139 +158,120 @@
   .mark.metronome { background: linear-gradient(135deg, #1d1d1f, #424245); }
 
   @media (max-width: 640px) {
-    .hero { padding: 72px 0 56px; }
-    .hero-strip { grid-template-columns: repeat(2, 1fr); }
+    .hero { padding: 80px 0 60px; }
+    .hero-strip { grid-template-columns: repeat(2, 1fr); gap: 12px; }
   }
 
   /* ---------- Section base ---------- */
   .section {
-    padding: 120px 0;
+    padding: 128px 0;
     position: relative;
     overflow: hidden;
   }
-  @media (max-width: 640px) {
-    .section { padding: 72px 0; }
-  }
   .section.dark { background: var(--canvas-ink); color: #f5f5f7; }
   .section.tint { background: var(--canvas-alt); }
+  @media (max-width: 640px) {
+    .section { padding: 80px 0; }
+  }
 
   .section-head {
     text-align: center;
-    max-width: 760px;
-    margin: 0 auto 56px;
+    max-width: 720px;
+    margin: 0 auto 40px;
   }
   .section-kicker {
     display: inline-flex;
     align-items: center;
-    gap: 10px;
-    font-size: 13px;
-    font-weight: 600;
-    letter-spacing: 0.02em;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
     color: var(--ink-mute);
-    margin-bottom: 20px;
+    margin-bottom: 16px;
   }
-  .section.dark .section-kicker { color: rgba(255,255,255,.55); }
+  .section.dark .section-kicker { color: rgba(255,255,255,.5); }
   .section-kicker .dot {
-    width: 8px; height: 8px; border-radius: 50%;
+    width: 7px; height: 7px; border-radius: 50%;
   }
   .section-title {
-    font-size: clamp(36px, 5vw, 60px);
-    line-height: 1.05;
-    letter-spacing: -0.03em;
-    font-weight: 800;
-    margin: 0 0 16px;
+    font-size: clamp(32px, 4.4vw, 54px);
+    line-height: 1.06;
+    letter-spacing: var(--type-tighter);
+    font-weight: 600;
+    margin: 0 0 18px;
   }
   .section-lede {
-    font-size: clamp(17px, 1.6vw, 20px);
+    font-size: clamp(17px, 1.35vw, 21px);
     color: var(--ink-soft);
     line-height: 1.5;
     margin: 0;
+    letter-spacing: -0.003em;
   }
-  .section.dark .section-lede { color: rgba(245,245,247,.72); }
+  .section.dark .section-lede { color: rgba(245,245,247,.7); }
 
   /* Feature grid */
   .features {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 28px;
-    max-width: 1080px;
-    margin: 64px auto 0;
+    gap: 28px 36px;
+    max-width: 1040px;
+    margin: 72px auto 0;
   }
-  @media (max-width: 640px) {
-    .features { margin-top: 40px; gap: 24px; }
-  }
-  @media (max-width: 900px) { .features { grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 560px) { .features { grid-template-columns: 1fr; } }
+  @media (max-width: 900px) { .features { grid-template-columns: repeat(2, 1fr); gap: 28px; } }
+  @media (max-width: 560px) { .features { grid-template-columns: 1fr; margin-top: 48px; gap: 28px; } }
   .feature h3 {
     font-size: 17px;
     font-weight: 600;
-    letter-spacing: -0.01em;
+    letter-spacing: var(--type-tight);
     margin: 0 0 8px;
   }
   .feature p {
     margin: 0;
     font-size: 15px;
     color: var(--ink-soft);
-    line-height: 1.55;
+    line-height: 1.5;
+    letter-spacing: -0.003em;
   }
   .section.dark .feature p { color: rgba(245,245,247,.65); }
 
   /* Screenshot frame */
   .frame {
     position: relative;
-    margin: 72px auto 0;
-    max-width: 1100px;
+    margin: 64px auto 0;
+    max-width: 1060px;
     border-radius: var(--radius-xl);
     overflow: hidden;
     background: #fff;
     box-shadow:
-      0 40px 120px -30px rgba(0,0,0,.25),
-      0 8px 24px -8px rgba(0,0,0,.12),
-      0 0 0 1px rgba(0,0,0,.06);
+      0 30px 80px -20px rgba(0,0,0,.20),
+      0 6px 20px -6px rgba(0,0,0,.10),
+      0 0 0 1px rgba(0,0,0,.05);
   }
   .section.dark .frame {
     box-shadow:
-      0 40px 120px -20px rgba(0,0,0,.7),
-      0 0 0 1px rgba(255,255,255,.06);
+      0 30px 80px -20px rgba(0,0,0,.6),
+      0 0 0 1px rgba(255,255,255,.05);
   }
   .frame img { width: 100%; display: block; }
 
   .frame-row {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 24px;
-    margin: 40px auto 0;
-    max-width: 1100px;
+    gap: 22px;
+    margin: 32px auto 0;
+    max-width: 1060px;
   }
-  .frame-row .frame { margin: 0; max-width: none; }
+  .frame-row .frame { margin: 0; max-width: none; border-radius: var(--radius-lg); }
   @media (max-width: 800px) {
-    .frame-row { grid-template-columns: 1fr; }
+    .frame-row { grid-template-columns: 1fr; gap: 18px; }
   }
 
-  /* On mobile: let screenshots show at a readable size via horizontal pan. */
-  @media (max-width: 720px) {
-    .frame {
-      margin-top: 48px;
-      border-radius: var(--radius-lg);
-      overflow-x: auto;
-      overflow-y: hidden;
-      -webkit-overflow-scrolling: touch;
-      scroll-snap-type: x mandatory;
-      scrollbar-width: none;
-    }
-    .frame::-webkit-scrollbar { display: none; }
-    .frame img {
-      width: auto;
-      max-width: none;
-      height: 52vh;
-      max-height: 520px;
-      min-height: 280px;
-      scroll-snap-align: start;
-    }
-    .frame-row { margin-top: 28px; gap: 16px; }
+  @media (max-width: 640px) {
+    .frame { margin-top: 48px; border-radius: var(--radius-lg); }
   }
 
-  /* Section-specific accent halos */
+  /* Section accent halos */
   .halo {
     position: absolute;
     inset: 0;
@@ -303,12 +282,12 @@
     content: '';
     position: absolute;
     left: 50%;
-    top: 20%;
-    width: 900px; height: 900px;
+    top: 24%;
+    width: 820px; height: 820px;
     transform: translate(-50%, -50%);
     border-radius: 50%;
-    filter: blur(120px);
-    opacity: .55;
+    filter: blur(110px);
+    opacity: .6;
   }
   .section .shell { position: relative; z-index: 1; }
   .section.shreddy .halo::before { background: var(--accent-shreddy-glow); }
@@ -316,26 +295,65 @@
   .section.chordcraft .halo::before { background: var(--accent-chordcraft-glow); }
   .section.metronome .halo::before { background: var(--accent-metronome-glow); }
 
-  /* Little badge in section kicker */
   .dot.shreddy { background: var(--accent-shreddy); }
   .dot.lickbank { background: var(--accent-lickbank); }
   .dot.chordcraft { background: var(--accent-chordcraft); }
   .dot.metronome { background: #fff; }
+  .dot.unified { background: linear-gradient(135deg, #ff4d2e, #5b6cff 40%, #17c27a 80%); }
+
+  /* Unified-library tile grid */
+  .tiles {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    max-width: 1060px;
+    margin: 56px auto 0;
+  }
+  @media (max-width: 760px) { .tiles { grid-template-columns: 1fr; gap: 16px; } }
+  .tile {
+    background: #fff;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow:
+      0 18px 50px -18px rgba(0,0,0,.15),
+      0 0 0 1px rgba(0,0,0,.05);
+  }
+  .tile-img {
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    background: #f5f5f7;
+  }
+  .tile-img img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: top left;
+  }
+  .tile-body {
+    padding: 18px 20px 20px;
+  }
+  .tile-body h4 {
+    margin: 0 0 4px;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: var(--type-tight);
+  }
+  .tile-body p {
+    margin: 0;
+    font-size: 13px;
+    color: var(--ink-mute);
+    letter-spacing: -0.003em;
+  }
 
   /* Footer */
   footer {
-    padding: 80px 0 60px;
+    padding: 72px 0 56px;
     text-align: center;
     font-size: 13px;
     color: var(--ink-mute);
-    border-top: 1px solid var(--line);
+    border-top: 1px solid var(--line-soft);
+    letter-spacing: -0.003em;
   }
   footer p { margin: 0 0 4px; }
-
-  /* Fine scroll tweak */
-  @media (prefers-reduced-motion: no-preference) {
-    .frame, .hero-chip, .feature { transition: transform .4s cubic-bezier(.2,.8,.2,1); }
-  }
 </style>
 </head>
 <body>
@@ -348,15 +366,16 @@
       <a href="#lickbank">LickBank</a>
       <a href="#chordcraft">ChordCraft</a>
       <a href="#metronome">Metronome</a>
+      <a href="#library">Library</a>
     </div>
   </div>
 </nav>
 
 <header class="hero">
   <div class="shell">
-    <span class="eyebrow">Four apps · built for guitar players who actually practice</span>
+    <span class="eyebrow">Four apps · one practice room</span>
     <h1 class="hero-title">The practice tools I always wished existed.</h1>
-    <p class="hero-sub">I play guitar. I wanted software that respects the way musicians actually learn — slow passages down, loop the hard bits, steal licks from YouTube, feel the shape of a progression. So I built four apps. Here they are.</p>
+    <p class="hero-sub">I play guitar. I wanted software that respects the way musicians actually learn — slow passages down, loop the hard bits, steal licks from YouTube, feel the shape of a progression. So I built four apps.</p>
     <div class="hero-strip">
       <a class="hero-chip" href="#shreddy"><span class="mark shreddy">S</span>Shreddy</a>
       <a class="hero-chip" href="#lickbank"><span class="mark lickbank">L</span>LickBank</a>
@@ -385,11 +404,11 @@
       </div>
       <div class="feature">
         <h3>Loop the hard bits</h3>
-        <p>Tap any section to loop it. Shift-tap to loop a range. Set custom A–B markers anywhere. Your loops survive reloads, so tomorrow's practice picks up where today's left off.</p>
+        <p>Tap any section to loop it. Shift-tap for a range. Set custom A–B markers anywhere. Your loops survive reloads, so tomorrow's practice picks up where today's left off.</p>
       </div>
       <div class="feature">
         <h3>Slow down without going flat</h3>
-        <p>Play back at 0.5x to 1.2x with no pitch change. Transpose up or down 12 semitones to match your voice or a different tuning.</p>
+        <p>Play back at 0.5x to 1.2x with no pitch change. Transpose up or down twelve semitones to match your voice or a different tuning.</p>
       </div>
       <div class="feature">
         <h3>Visual waveform timeline</h3>
@@ -404,10 +423,6 @@
         <p>Daily streaks, weekly minutes, most-practiced songs. Proof that you actually showed up — not just a number, a habit.</p>
       </div>
     </div>
-    <div class="frame-row">
-      <div class="frame"><img src="assets/screenshots/shreddy-library.png" alt="Shreddy song library" /></div>
-      <div class="frame"><img src="assets/screenshots/shreddy-stats.png" alt="Shreddy practice stats" /></div>
-    </div>
   </div>
 </section>
 
@@ -418,23 +433,23 @@
     <div class="section-head">
       <div class="section-kicker"><span class="dot lickbank"></span>LickBank</div>
       <h2 class="section-title">Steal every lick worth stealing.</h2>
-      <p class="section-lede">Every guitar player has a YouTube history full of "that one lick at 2:43." LickBank is where those moments finally stop getting lost. Paste a video, snip the exact phrase, file it under the song it came from.</p>
+      <p class="section-lede">Every guitar player has a YouTube history full of "that one lick at 2:43." LickBank is where those moments stop getting lost. Pull the video in, scrub to the phrase, trim the exact clip, save it with a name.</p>
     </div>
     <div class="frame">
-      <img src="assets/screenshots/lickbank.png" alt="LickBank library showing guitar licks clipped from YouTube lessons, organized by source song" />
+      <img src="assets/screenshots/lickbank-extract.png" alt="LickBank lick extraction view with YouTube video, tabs overlay, clip range controls, and a list of saved licks from the source song" />
     </div>
     <div class="features">
       <div class="feature">
-        <h3>Import from YouTube</h3>
-        <p>Paste a URL. The video lands in your library with its thumbnail, title, and the moment frozen at the lick you care about.</p>
+        <h3>Trim licks in two taps</h3>
+        <p>Set the clip start and end from the playhead. The waveform shows every lick you've already saved from this source, right where they live in the song.</p>
       </div>
       <div class="feature">
-        <h3>Organized by source song</h3>
-        <p>Color-coded cards group licks from the same song. Folders for "Pentatonic," "Rock," "Come Together" — however you think about your vocabulary.</p>
+        <h3>Import straight from YouTube</h3>
+        <p>Paste a URL. The video lands locally with its thumbnail and title, ready to clip. No tab-hopping. Nothing lives at the mercy of a broken link.</p>
       </div>
       <div class="feature">
-        <h3>Searchable, fast</h3>
-        <p>Find the Man in the Box riff, the bridge solo from that Tears for Fears cover, the pentatonic run you bookmarked six months ago. All in one place.</p>
+        <h3>A growing vocabulary</h3>
+        <p>Every clip is filed under the song it came from and tagged by folder — "Pentatonic," "Rock," whatever. Your library is the sum of every phrase you've ever wanted to play.</p>
       </div>
     </div>
   </div>
@@ -450,7 +465,7 @@
       <p class="section-lede">Twenty progressions across blues, country, folk, jazz, pop, and rock. Hear each one in any key, with bass and drums behind it, with real chord diagrams in front of it. The quickest way to internalize how genres actually move.</p>
     </div>
     <div class="frame">
-      <img src="assets/screenshots/chordcraft.png" alt="ChordCraft showing the Pop Anthem progression I-V-vi-IV with guitar chord diagrams for C, G, Am, F" />
+      <img src="assets/screenshots/chordcraft.png" alt="ChordCraft showing the Pop Anthem progression with guitar chord diagrams for C, G, Am, F" />
     </div>
     <div class="features">
       <div class="feature">
@@ -459,7 +474,7 @@
       </div>
       <div class="feature">
         <h3>Bass and drums built in</h3>
-        <p>Hear the progression in context — not just isolated chord tones. Mix the bass and drum levels to your taste.</p>
+        <p>Hear the progression in context — not just isolated chord tones. Mix bass and drums to taste.</p>
       </div>
       <div class="feature">
         <h3>Chord diagrams and voicings</h3>
@@ -488,11 +503,45 @@
       </div>
       <div class="feature">
         <h3>Time signatures that matter</h3>
-        <p>4/4, 3/4, 6/8. Beat indicators at the top show you exactly where you are in the measure.</p>
+        <p>4/4, 3/4, 6/8. Beat indicators at the top show exactly where you are in the measure.</p>
       </div>
       <div class="feature">
         <h3>Practice timer</h3>
-        <p>Set a fade-out timer for 1, 2, 5, or 10 minutes — or type your own. Puts a bound on practice blocks without breaking your flow.</p>
+        <p>Fade-out timer at 1, 2, 5, or 10 minutes — or type your own. Bound your practice blocks without breaking flow.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- UNIFIED LIBRARY -->
+<section id="library" class="section tint">
+  <div class="shell">
+    <div class="section-head">
+      <div class="section-kicker"><span class="dot unified"></span>One library, every tool</div>
+      <h2 class="section-title">A shared shelf for everything you practice.</h2>
+      <p class="section-lede">Every app speaks the same visual language. The same song list that holds your Shreddy tracks organizes your LickBank clips and ChordCraft progressions. Learn the interface once — use it everywhere.</p>
+    </div>
+    <div class="tiles">
+      <div class="tile">
+        <div class="tile-img"><img src="assets/screenshots/shreddy-library.png" alt="Shreddy song library" /></div>
+        <div class="tile-body">
+          <h4>Shreddy · Songs</h4>
+          <p>Tracks you're learning, grouped by genre and folder.</p>
+        </div>
+      </div>
+      <div class="tile">
+        <div class="tile-img"><img src="assets/screenshots/lickbank.png" alt="LickBank clips library" /></div>
+        <div class="tile-body">
+          <h4>LickBank · Clips</h4>
+          <p>Every lick you've saved, filed by source and theme.</p>
+        </div>
+      </div>
+      <div class="tile">
+        <div class="tile-img"><img src="assets/screenshots/shreddy-stats.png" alt="Practice stats dashboard" /></div>
+        <div class="tile-body">
+          <h4>Stats · Your habit</h4>
+          <p>Streaks, weekly minutes, most-practiced songs — across every app.</p>
+        </div>
       </div>
     </div>
   </div>
